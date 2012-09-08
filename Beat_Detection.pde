@@ -65,10 +65,12 @@ class BeatDetection {
   
   void bang() { // beat found
     ca.randomRuleset(); println("bang!");
-    bangBrightness = 8 0;
+    bangBrightness = 80;
     b.setColorForeground(color(360,80,bangBrightness));
-    //bgColor = color(round(random(360)),round(random(100)),round(random(100)));
-     bgColor = (Integer) niceColors.get(round(random(niceColors.size()-1)));
+    if(CHANGE_COLORS) {
+      //bgColor = color(round(random(360)),round(random(100)),round(random(100)));
+      bgColor = (Integer) niceColors.get(round(random(niceColors.size()-1)));
+    }
     
   }
   void updateBeatVis() {
@@ -82,4 +84,3 @@ class BeatDetection {
     beatDetector.setAlpha(a);
   }
 }
-

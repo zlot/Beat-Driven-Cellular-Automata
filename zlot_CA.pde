@@ -1,3 +1,5 @@
+// good tracks to try: Snd - track 8 (untitled) on Atavism.
+
 import controlP5.*;
 import beads.*;
 
@@ -6,9 +8,11 @@ BeatDetection beatAnalyser;
 ControlP5 cP5;
 Bang b; // used to change colour of button to visualise beats
 
-final boolean WRAP_AROUND = false; //wrap the CA horizontally
+final boolean CHANGE_COLORS = true;
+final boolean WRAP_AROUND = false; //wrap the CA horizontally. Doesn't produce anything good really.
 color caColor;
-color bgColor; // = color(0,0,225); nice blue color!! like Commodore64
+color bgColor = color(0,0,255); // = color(0,0,225); nice blue color!! like Commodore64
+ArrayList niceColors = new ArrayList<Integer>();
 
 void setup() {
   size(400,900);
@@ -50,7 +54,6 @@ void keyPressed() {
   }  
 }
 
-ArrayList niceColors = new ArrayList<Integer>();
 void addColors() {
   niceColors.add(color(0,0,225));
   niceColors.add(color(23,9,92));
@@ -63,5 +66,3 @@ void addColors() {
   niceColors.add(color(57,25,86));
   niceColors.add(color(9,53,92));
 }
-
-
