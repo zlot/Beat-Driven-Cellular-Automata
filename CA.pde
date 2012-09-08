@@ -6,6 +6,9 @@ class CA {
   int ruleset[] = new int[8]; // current ruleset being used.
   int generation = 0; //current generation. relates to y-axis when drawn to screen.
   
+  PImage scrollingImage;
+  boolean scrolling = false;
+  
   /*****CONSTRUCTOR*****/
   CA() {
     // new array of width. This is 1dimensional!
@@ -35,25 +38,27 @@ class CA {
     if(!paused) {
       int[] nextGen = new int[cells.length];
       // for all current cells, apply rules and place in nextGen[].
-      
       if(WRAP_AROUND) { // gives the first and last cells neighbours.
         nextGen[0] = checkRules(cells[cells.length-1], cells[0], cells[1]);
         nextGen[cells.length-1] = checkRules(cells[cells.length-2], cells[cells.length-1], cells[0]);
-      }      
-      
-      // ignore first amd last cell.
+      }   
+      // ignore first and last cell.
       for(int i=1; i<cells.length-1; i++) {
         nextGen[i] = checkRules(cells[i-1], cells[i], cells[i+1]); // leftOfCell, cell, rightOfCell
       }
-      
       draw();
       cells = (int[]) nextGen.clone();
-      generation++;
-      if(generation % height == 0) { // continue from top if reached bottom
-        generation = 0;
-        bgColor = color(round(random(360)),round(random(100)),round(random(100)));
-        background(bgColor);
-      }
+      if(!scrolling) generation++;
+      
+      if(generation == height-1) {
+        if(SCROLLING) {
+          scrolling = true; // flag that from now on, we scroll!
+        } else {
+          generation = 0;
+          if(CHANGE_COLORS) bgColor = (Integer) niceColors.get(round(random(niceColors.size()-1)));
+          background(bgColor);
+        }
+      } 
     }
   }
   void pause() {
@@ -66,6 +71,11 @@ class CA {
   
   
   void draw() {
+    if(scrolling) {
+      scrollingImage = get(0,0,width,height); // get PImage of screen
+      background(bgColor); //clear bg
+      set(0,-1,scrollingImage); // place back image
+    }
     // for all cells in the generation, draw if active.
     for(int i=0; i<cells.length; i++) {
       fill(caColor);
