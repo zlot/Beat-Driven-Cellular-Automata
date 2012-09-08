@@ -8,6 +8,7 @@ BeatDetection beatAnalyser;
 ControlP5 cP5;
 Bang b; // used to change colour of button to visualise beats
 
+final boolean SCROLLING = true; // scrolling behaviour, or replacement behaviour?
 final boolean CHANGE_COLORS = true;
 final boolean WRAP_AROUND = false; //wrap the CA horizontally. Doesn't produce anything good really.
 color caColor;
@@ -26,7 +27,7 @@ void setup() {
   beatAnalyser = new BeatDetection();
   initControlP5();
   ca = new CA();
-  ca.inputRule(97); // best rules: 225, 30, 99, 97?
+  ca.inputRule(105); // best rules: 225, 30, 99, 97, 105?
   addColors();
 }
 

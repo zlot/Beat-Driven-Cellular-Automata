@@ -38,25 +38,27 @@ class CA {
     if(!paused) {
       int[] nextGen = new int[cells.length];
       // for all current cells, apply rules and place in nextGen[].
-      
       if(WRAP_AROUND) { // gives the first and last cells neighbours.
         nextGen[0] = checkRules(cells[cells.length-1], cells[0], cells[1]);
         nextGen[cells.length-1] = checkRules(cells[cells.length-2], cells[cells.length-1], cells[0]);
-      }      
-      
+      }   
       // ignore first and last cell.
       for(int i=1; i<cells.length-1; i++) {
         nextGen[i] = checkRules(cells[i-1], cells[i], cells[i+1]); // leftOfCell, cell, rightOfCell
       }
-      
       draw();
-
       cells = (int[]) nextGen.clone();
       if(!scrolling) generation++;
       
       if(generation == height-1) {
-        scrolling = true; // flag that from now on, we scroll!
-      }
+        if(SCROLLING) {
+          scrolling = true; // flag that from now on, we scroll!
+        } else {
+          generation = 0;
+          if(CHANGE_COLORS) bgColor = (Integer) niceColors.get(round(random(niceColors.size()-1)));
+          background(bgColor);
+        }
+      } 
     }
   }
   void pause() {
