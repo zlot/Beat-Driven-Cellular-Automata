@@ -8,7 +8,7 @@ class BeatDetection {
   private PeakDetector beatDetector;
   private Gain g;
   float vol = 1; // volume of song. From 0 to 1
-  int bangBrightness;
+  int bangBrightness = 80;
   
   /*****CONSTRUCTOR*****/
   BeatDetection() {
@@ -51,7 +51,7 @@ class BeatDetection {
     sd.addListener(beatDetector);
     // the threshold is the gain level that will trigger the beat detector
     beatDetector.setThreshold(0.2f);
-    beatDetector.setAlpha(.9f);
+    beatDetector.setAlpha(.98f);
     beatDetector.addMessageListener(new Bead() {
       protected void messageReceived(Bead b) {
          beatAnalyser.bang();
@@ -69,8 +69,8 @@ class BeatDetection {
     b.setColorForeground(color(360,80,bangBrightness));
   }
   void updateBeatVis() {
-    beatAnalyser.bangBrightness = (beatAnalyser.bangBrightness == 0) ? 0 : beatAnalyser.bangBrightness-2;
-    b.setColorForeground(color(360,80,beatAnalyser.bangBrightness));
+    beatAnalyser.bangBrightness = (beatAnalyser.bangBrightness == 0) ? 0 : beatAnalyser.bangBrightness-1;
+    b.setColorForeground(color(360,80,beatAnalyser.bangBrightness-1));
   }
   void setThreshold(float t) {
     beatDetector.setThreshold(t);

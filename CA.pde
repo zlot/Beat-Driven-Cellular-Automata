@@ -6,6 +6,9 @@ class CA {
   int ruleset[] = new int[8]; // current ruleset being used.
   int generation = 0; //current generation. relates to y-axis when drawn to screen.
   
+  PImage scrollingImage;
+  boolean scrolling = false;
+  
   /*****CONSTRUCTOR*****/
   CA() {
     // new array of width. This is 1dimensional!
@@ -41,18 +44,27 @@ class CA {
         nextGen[cells.length-1] = checkRules(cells[cells.length-2], cells[cells.length-1], cells[0]);
       }      
       
-      // ignore first amd last cell.
+      // ignore first and last cell.
       for(int i=1; i<cells.length-1; i++) {
         nextGen[i] = checkRules(cells[i-1], cells[i], cells[i+1]); // leftOfCell, cell, rightOfCell
       }
       
-      draw();
+      if(!scrolling) draw(); // once scrolling, draw() is a bit further down.
+      
       cells = (int[]) nextGen.clone();
-      generation++;
-      if(generation % height == 0) { // continue from top if reached bottom
-        generation = 0;
-        bgColor = color(round(random(360)),round(random(100)),round(random(100)));
-        background(bgColor);
+      if(!scrolling) generation++;
+      
+      if(generation == height-1) {
+        scrolling = true; // flag that from now on, we scroll!
+      }
+      
+      if(scrolling) {
+        // get PImage of screen
+        scrollingImage = get(0,0,width,height);
+        background(bgColor); //clear bg
+        // place back image
+        set(0,-1,scrollingImage);
+        draw();
       }
     }
   }
