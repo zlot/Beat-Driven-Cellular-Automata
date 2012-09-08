@@ -23,6 +23,7 @@ void setup() {
   initControlP5();
   ca = new CA();
   ca.inputRule(97); // best rules: 225, 30, 99, 97?
+  addColors();
 }
 
 void draw() {  
@@ -48,3 +49,19 @@ void keyPressed() {
     }
   }  
 }
+
+ArrayList niceColors = new ArrayList<Integer>();
+void addColors() {
+  niceColors.add(color(0,0,225));
+  niceColors.add(color(23,9,92));
+  niceColors.add(color(23,9,92));
+  niceColors.add(color(192,4,16));
+  niceColors.add(color(178,70,97));
+  niceColors.add(color(339,36,87));
+  niceColors.add(color(106,10,89));
+  niceColors.add(color(2,50,92));
+  niceColors.add(color(57,25,86));
+  niceColors.add(color(9,53,92));
+}
+
+

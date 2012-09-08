@@ -70,12 +70,9 @@ class CA {
   
   void draw() {
     if(scrolling) {
-      // get PImage of screen
-      scrollingImage = get(0,0,width,height);
+      scrollingImage = get(0,0,width,height); // get PImage of screen
       background(bgColor); //clear bg
-      // place back image
-      set(0,-1,scrollingImage);
-     
+      set(0,-1,scrollingImage); // place back image
     }
     // for all cells in the generation, draw if active.
     for(int i=0; i<cells.length; i++) {
