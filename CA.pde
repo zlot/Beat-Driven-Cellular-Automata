@@ -49,22 +49,13 @@ class CA {
         nextGen[i] = checkRules(cells[i-1], cells[i], cells[i+1]); // leftOfCell, cell, rightOfCell
       }
       
-      if(!scrolling) draw(); // once scrolling, draw() is a bit further down.
-      
+      draw();
+
       cells = (int[]) nextGen.clone();
       if(!scrolling) generation++;
       
       if(generation == height-1) {
         scrolling = true; // flag that from now on, we scroll!
-      }
-      
-      if(scrolling) {
-        // get PImage of screen
-        scrollingImage = get(0,0,width,height);
-        background(bgColor); //clear bg
-        // place back image
-        set(0,-1,scrollingImage);
-        draw();
       }
     }
   }
@@ -78,6 +69,14 @@ class CA {
   
   
   void draw() {
+    if(scrolling) {
+      // get PImage of screen
+      scrollingImage = get(0,0,width,height);
+      background(bgColor); //clear bg
+      // place back image
+      set(0,-1,scrollingImage);
+     
+    }
     // for all cells in the generation, draw if active.
     for(int i=0; i<cells.length; i++) {
       fill(caColor);
