@@ -12,7 +12,7 @@ final boolean SCROLLING = true; // scrolling behaviour, or replacement behaviour
 final boolean CHANGE_COLORS = true;
 final boolean WRAP_AROUND = false; //wrap the CA horizontally. Doesn't produce anything good really.
 color caColor;
-color bgColor = color(0,0,255); // = color(0,0,225); nice blue color!! like Commodore64
+color bgColor; // = color(0,0,225); nice blue color!! like Commodore64
 ArrayList niceColors = new ArrayList<Integer>();
 
 void setup() {
