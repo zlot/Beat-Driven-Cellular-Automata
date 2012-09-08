@@ -10,7 +10,7 @@ class CA {
   CA() {
     // new array of width. This is 1dimensional!
     cells = new int[round(width/scl)];
-    cells[cells.length/2] = 1;    
+    cells[cells.length/2] = 1;
     inputRule(30);
   }  
   
@@ -35,20 +35,24 @@ class CA {
     if(!paused) {
       int[] nextGen = new int[cells.length];
       // for all current cells, apply rules and place in nextGen[].
-      // ignore first cell and last as they don't have full neighbours.
+      
+      if(WRAP_AROUND) { // gives the first and last cells neighbours.
+        nextGen[0] = checkRules(cells[cells.length-1], cells[0], cells[1]);
+        nextGen[cells.length-1] = checkRules(cells[cells.length-2], cells[cells.length-1], cells[0]);
+      }      
+      
+      // ignore first amd last cell.
       for(int i=1; i<cells.length-1; i++) {
-        int leftOfCell = cells[i-1];
-        int cell = cells[i];
-        int rightOfCell = cells[i+1];
-        nextGen[i] = checkRules(leftOfCell, cell, rightOfCell);
+        nextGen[i] = checkRules(cells[i-1], cells[i], cells[i+1]); // leftOfCell, cell, rightOfCell
       }
+      
       draw();
       cells = (int[]) nextGen.clone();
-      
       generation++;
-      if(generation % height == 0) {
+      if(generation % height == 0) { // continue from top if reached bottom
         generation = 0;
-        background(255);
+        bgColor = color(round(random(360)),round(random(100)),round(random(100)));
+        background(bgColor);
       }
     }
   }
@@ -56,9 +60,15 @@ class CA {
     paused = !paused;
   }
   
+  void randomRuleset() {
+    inputRule(round(random(255)));
+  }
+  
+  
   void draw() {
     // for all cells in the generation, draw if active.
     for(int i=0; i<cells.length; i++) {
+      fill(caColor);
       if(cells[i] == 1) rect(i*scl, generation*scl, scl,scl); //only draw the cell if its state is on
     }
   }
