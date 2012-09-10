@@ -10,7 +10,8 @@ Bang b; // used to change colour of button to visualise beats
 
 final boolean SCROLLING = true; // scrolling behaviour, or replacement behaviour?
 final boolean CHANGE_COLORS = true;
-final boolean WRAP_AROUND = false; //wrap the CA horizontally. Doesn't produce anything good really.
+final boolean WRAP_AROUND = false; //wrap the CA horizontally. Not good for when beat-reactive. Great for watching one rule.
+final boolean RANDOM_INITIAL_CONDITION = false; // will generate random initial conditions each time. Only useful if NOT switching rules often.
 color caColor;
 color bgColor; // = color(0,0,225); nice blue color!! like Commodore64
 ArrayList niceColors = new ArrayList<Integer>();
@@ -27,7 +28,7 @@ void setup() {
   beatAnalyser = new BeatDetection();
   initControlP5();
   ca = new CA();
-  ca.inputRule(105); // best rules: 225, 30, 99, 97, 105?
+  ca.inputRule(144); // best rules: 225, 30, 99, 97, 105, 73
   addColors();
 }
 
